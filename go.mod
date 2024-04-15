@@ -1,4 +1,4 @@
-module github.com/cristhiano/reviews-chatbot
+module github.com/cristhiano/sentimental-chatbot
 
 go 1.21.0
 

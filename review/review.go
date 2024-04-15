@@ -6,7 +6,7 @@ import (
 
 	"log"
 
-	"github.com/cristhiano/reviews-chatbot/conversation"
+	"github.com/cristhiano/sentimental-chatbot/conversation"
 )
 
 type Review struct {

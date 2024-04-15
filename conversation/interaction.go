@@ -1,7 +1,7 @@
 package conversation
 
 import (
-	"github.com/cristhiano/reviews-chatbot/nlp"
+	"github.com/cristhiano/sentimental-chatbot/nlp"
 )
 
 type NLPResolver string

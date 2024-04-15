@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/cristhiano/reviews-chatbot/review"
+	"github.com/cristhiano/sentimental-chatbot/review"
 )
 
 func prompt(msg string) string {
