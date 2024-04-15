@@ -1,6 +1,7 @@
 package scripts
 
 import (
+	"fmt"
 	"regexp"
 	"strconv"
 
@@ -10,10 +11,16 @@ import (
 )
 
 type Review struct {
-	Product string
-	UserID  string
-	Rate    int
-	Comment string
+	Product     string
+	UserID      string
+	Rating      int
+	ValidRating bool
+}
+
+func (r Review) String() string {
+	return fmt.Sprintf(
+		"User id: %s Product: \"%s\" Rating: %d Valid: %v",
+		r.UserID, r.Product, r.Rating, r.ValidRating)
 }
 
 type ReviewConversation struct {
@@ -43,14 +50,15 @@ func NewReviewConversation(product, userID string) *ReviewConversation {
 				return
 			}
 
-			rate, err := strconv.Atoi(rateStr)
+			rating, err := strconv.Atoi(rateStr)
 			if err != nil {
 				return
 			}
 
-			if rate >= 1 && rate <= 5 {
-				log.Printf("Rate: %d", rate)
-				review.Rate = rate
+			if rating >= 1 && rating <= 5 {
+				log.Printf("rating: %d", rating)
+				review.Rating = rating
+				review.ValidRating = true
 			}
 		},
 	}

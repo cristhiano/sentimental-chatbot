@@ -26,4 +26,6 @@ Transport layers need to implement the `Transport` interface, which is made out 
 
 ### Data models
 
-`Interaction` is the most important model, it composes the conversation trees by defining the possible flows, specifies which kind of sentiment analysis should be used and accept functions to extract information from the messages.
+`conversation.Interaction` is the most important model, it composes the conversation trees by defining the possible flows, specifies which kind of sentiment analysis should be used and accept functions to extract information from the messages.
+
+`scripts.ReviewConversation` embeds `conversation.Conversation` and add the fields specific to this kind of dialog by embedding `scripts.Review`.
