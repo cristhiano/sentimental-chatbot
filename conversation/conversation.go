@@ -1,19 +1,27 @@
 package conversation
 
+import "github.com/cristhiano/sentimental-chatbot/transport"
+
 type Conversation struct {
 	Interaction Interaction
 }
 
-func (c *Conversation) Start(human chan string) chan string {
+func (c *Conversation) Start(t transport.Transport) {
+	human := make(chan string)
 	robot := make(chan string)
 
-	go c.perform(human, robot)
+	go c.output(&c.Interaction, human, robot)
 
-	return robot
+	c.input(t, human, robot)
 }
 
-func (c *Conversation) perform(human, robot chan string) {
-	interaction := &c.Interaction
+func (c *Conversation) input(t transport.Transport, human, robot chan string) {
+	for statement := range robot {
+		human <- t.Input(statement)
+	}
+}
+
+func (c *Conversation) output(interaction *Interaction, human, robot chan string) {
 	robot <- interaction.Statement
 
 	for answer := range human {

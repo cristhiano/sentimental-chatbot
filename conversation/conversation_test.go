@@ -1,10 +1,31 @@
 package conversation
 
 import (
+	"fmt"
 	"log"
 	"testing"
 )
 
+type dummyTransport struct {
+	pos      int
+	messages []string
+}
+
+func (d *dummyTransport) Input(input string) string {
+	log.Print(input)
+	if d.pos == len(d.messages) {
+		return ""
+	}
+
+	output := d.messages[d.pos]
+	log.Print(output)
+
+	d.pos = d.pos + 1
+
+	return output
+}
+
+// Debug this to see conversations playing out
 func TestStart(t *testing.T) {
 	petsInteraction := Interaction{
 		Statement:   "Do you have any pets?",
@@ -97,22 +118,28 @@ func TestStart(t *testing.T) {
 				Interaction: tt.interaction,
 			}
 
-			human := make(chan string)
-			robot := c.Start(human)
-
-			var i int
-			for statement := range robot {
-				log.Print(statement)
-
-				if i == len(tt.answers) {
-					break
-				}
-
-				log.Print(tt.answers[i])
-				human <- tt.answers[i]
-
-				i++
+			dummy := &dummyTransport{
+				messages: tt.answers,
 			}
+
+			fmt.Print("\n")
+			fmt.Print(tt.name)
+
+			c.Start(dummy)
+
+			// var i int
+			// for statement := range robot {
+			// 	log.Print(statement)
+
+			// 	if i == len(tt.answers) {
+			// 		break
+			// 	}
+
+			// 	log.Print(tt.answers[i])
+			// 	human <- tt.answers[i]
+
+			// 	i++
+			// }
 		})
 	}
 }

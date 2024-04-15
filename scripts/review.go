@@ -1,4 +1,4 @@
-package review
+package scripts
 
 import (
 	"regexp"
@@ -19,13 +19,6 @@ type Review struct {
 type ReviewConversation struct {
 	conversation.Conversation
 	*Review
-}
-
-func (rc *ReviewConversation) StartReview() (human, robot chan string) {
-	human = make(chan string)
-	robot = rc.Start(human)
-
-	return human, robot
 }
 
 func NewReviewConversation(product, userID string) *ReviewConversation {
