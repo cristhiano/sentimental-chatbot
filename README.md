@@ -24,7 +24,7 @@ Scripts embed `Conversation` and carry any specific information that needs to be
 
 Transport layers need to implement the `Transport` interface, which is made out of a single method `Input(string)string`.
 
-### Data models
+## Data models
 
 `conversation.Interaction` is the most important model, it composes the conversation trees by defining the possible flows, specifies which kind of sentiment analysis should be used and accept functions to extract information from the messages.
 
